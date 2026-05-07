@@ -25,6 +25,8 @@ using namespace std;
  */
 class Solution {
 public:
+
+/** 
     ListNode* deleteDuplicates(ListNode* head) {
         ListNode* dummy = new ListNode(-999);
         dummy->next = head;
@@ -56,6 +58,29 @@ public:
             }
         }
         return prev;
+    }
+*/
+    ListNode* deleteDuplicates(ListNode* head) {
+        ListNode* cur = new ListNode(0);
+        ListNode* ans = cur;
+        while (head) {
+            int k = head->val;
+            // if (head->next == nullptr) {
+            //     cur->next = head;
+            //     break;
+            // }
+            if (head->next==nullptr || head->next->val != k) {
+                cur->next = head;
+                cur = cur->next;
+                head = head->next;
+            } else {
+                while (head && head->val == k) {
+                    head = head->next;
+                }
+            }
+        }
+        cur->next=nullptr;
+        return ans->next;
     }
 };
 // @lc code=end
