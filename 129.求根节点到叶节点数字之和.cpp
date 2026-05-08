@@ -2,16 +2,15 @@
 #include <vector>
 #include <string>
 #include <stack>
-#include <unordered_map>
-#include "commoncppproblem112.h"
+#include "commoncppproblem129.h"
 
 using namespace std;
 // @before-stub-for-debug-end
 
 /*
- * @lc app=leetcode.cn id=112 lang=cpp
+ * @lc app=leetcode.cn id=129 lang=cpp
  *
- * [112] 路径总和
+ * [129] 求根节点到叶节点数字之和
  */
 
 // @lc code=start
@@ -28,9 +27,9 @@ using namespace std;
  */
 class Solution {
 public:
-    bool hasPathSum(TreeNode* root, int targetSum) {
-        if (!root) return false; 
+    int sumNumbers(TreeNode* root) {
         std::stack<TreeNode*> st;
+        int ans = 0;
         int sum = 0;
         std::unordered_map<TreeNode*, int> nodeTosum;
         st.push(root);
@@ -39,7 +38,7 @@ public:
             TreeNode* cur = st.top();
             st.pop();
             sum = nodeTosum[cur];
-            sum += cur->val;
+            sum = sum * 10 + cur->val;
             if (cur->left) {
                 st.push(cur->left);
                 nodeTosum[cur->left] = sum;
@@ -49,11 +48,11 @@ public:
                 nodeTosum[cur->right] = sum;
             }
             if (!cur->left && !cur->right) {
-                if (sum == targetSum) return true;
+                ans += sum;
             }
         }
 
-        return false;
+        return ans;
     }
 };
 // @lc code=end
